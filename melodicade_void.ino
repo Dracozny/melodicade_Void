@@ -2,12 +2,14 @@ const char version[] = "Build: 22-02-22 17:39";
 byte deckType = 1; // Deck type: 0 = No velocity detection, 1 = Dual switch velocity detection
 
 //----------------------------------------------------------------------------//
-//                        -----  Melodicade MX  -----                         //
+//                        -----  Melodicade Void  -----                       //
 //          A portable 6+ octave, velocity sensitive MIDI keyboard            //
 //          using Cherry MX compatible keyswitches arranged in the            //
 //                   Wicki-Hayden isomporphic button layout.                  //
+//                          Modified By Dracozny.                             //
+//                   Original source by Michael Koopman                       //
 //                                                                            //
-//                   Copyright (C) 2022 - Michael Koopman                     //
+//  Code where similar or exact is Copyright (C) 2022 - Michael Koopman       //
 //                KOOP Instruments (koopinstruments@gmail.com)                //
 //      https://www.koopinstruments.com/instrument-projects/melodicade_mx     //
 //----------------------------------------------------------------------------//
@@ -29,6 +31,9 @@ byte deckType = 1; // Deck type: 0 = No velocity detection, 1 = Dual switch velo
 
 
 // To do list
+// Code: Change to SPI Display for faster asynchronus response
+// Code: Modify pin selectors to utilize 10* 16 channel Mux
+// Code: 
 // Code:  If pitch bend button is pressed with no note button currently engaged, immediately snap to full amount to easier facilitite pre-bends
 // Code:  Look into creating a scrolling menu so that we can add more options like:
 //          Knob mode selection
@@ -50,19 +55,20 @@ byte deckType = 1; // Deck type: 0 = No velocity detection, 1 = Dual switch velo
 // Microcontroller Information:
 // Teensy 4.1 at 600MHz with USB type MIDI
 // I/O requirments:
-//     34 x Digital
-//      4 x Analog
-//      2 x I2C
+//     14 x Digital ???
+//      14 x Analog
+//     ??? 2 x I2C    ???
+//      1 x SPI
 //      1 x Serial TX
 //      1 x MQS
 // Additional requirements:
-//      1 x +3.3V for foot pedal, DIN MIDI, 10K Ohm pots, SSD1306 OLED, and KY-040 rotary encoder
-//      1 x GND for DIN MIDI, 10K Ohm pots, SSD1306 OLED, synth audio out, and KY-040 rotary encoder
+//      1 x +3.3V for foot pedal, DIN MIDI, 10K Ohm pots, NewHaven SPI OLED, and KY-040 rotary encoder, 10x Mux and 120 hall sensors !!!POWER!!! May require External 
+//      1 x GND for DIN MIDI, 10K Ohm pots, NewHaven SPI OLED, synth audio out, and KY-040 rotary encoder 10x Mux and 120 hall sensors
 //
 // Hardware configuration:
-// 120 x Gateron Black mechanical keyswitches (matrix of 10 columns * 12 shared rows)
-// 120 x LL1105AF065Q Low activation force tact switches (matrix of 10 columns * 12 shared rows)
-//   1 x SSD1306 OLED display on I2C bus
+// 120 x 3D Printed Void Key Caps and Switches (matrix of 10 columns * 12 shared rows)
+// 120 x Linear Hall sensors (matrix of 10 columns * 12 shared rows)
+//   1 x New Haven OLED display on SPI bus
 //   1 x KY-040 rotary encoder with pushbutton for menu interaction
 //   2 x 10K Ohm potentiometers for analog adjustment of velocity and MIDI CC volume
 //   1 x USB-B panel mount jack for power and USB MIDI
